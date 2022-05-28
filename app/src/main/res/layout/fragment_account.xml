@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.account.AccountFragment">
+
+    <ImageView
+        android:id="@+id/accountTopContainer"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/account_top_container"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/accountImageProfile"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintStart_toStartOf="@id/accountTopContainer"
+        app:layout_constraintBottom_toTopOf="@id/accountNameProfile"
+        android:src="@drawable/placeholder"
+        />
+
+    <TextView
+        android:id="@+id/accountNameProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        android:maxLines="1"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@id/accountTopContainer"
+        app:layout_constraintEnd_toEndOf="@id/accountTopContainer"
+        app:layout_constraintBottom_toBottomOf="@id/accountTopContainer"
+        android:text="Nama Akun"
+        />
+
+    <ImageView
+        android:id="@+id/accountLogout"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_margin="20dp"
+        app:layout_constraintEnd_toEndOf="@id/accountTopContainer"
+        app:layout_constraintTop_toTopOf="@id/accountTopContainer"
+        android:src="@drawable/ic_logout_24_white"
+        />
+
+    <LinearLayout
+        android:id="@+id/accountMenu1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/account_item_selector"
+        app:layout_constraintTop_toBottomOf="@id/accountTopContainer"
+        app:layout_constraintStart_toStartOf="@id/accountTopContainer"
+        app:layout_constraintEnd_toEndOf="@id/accountTopContainer" >
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_account_menu_profile"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Profile"
+            android:textSize="15sp"
+            android:textColor="@color/dayNightText"
+            android:layout_margin="10dp"
+            android:gravity="center_vertical"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/accountMenu2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/account_item_selector"
+        app:layout_constraintTop_toBottomOf="@id/accountMenu1"
+        app:layout_constraintStart_toStartOf="@id/accountTopContainer"
+        app:layout_constraintEnd_toEndOf="@id/accountTopContainer" >
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_favorite_border_24"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Favorite"
+            android:textSize="15sp"
+            android:textColor="@color/dayNightText"
+            android:layout_margin="10dp"
+            android:gravity="center_vertical"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/accountMenu3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/account_item_selector"
+        app:layout_constraintTop_toBottomOf="@id/accountMenu2"
+        app:layout_constraintStart_toStartOf="@id/accountTopContainer"
+        app:layout_constraintEnd_toEndOf="@id/accountTopContainer" >
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_account_menu_profile"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Akun"
+            android:textSize="15sp"
+            android:textColor="@color/dayNightText"
+            android:layout_margin="10dp"
+            android:gravity="center_vertical"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

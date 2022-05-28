@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.account.profile.ProfileSettingsActivity">
+
+    <ImageView
+        android:id="@+id/profileTopContainer"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/account_top_container"
+        android:transitionName="topContainerTransaction"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/profileImageProfile"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="10dp"
+        android:transitionName="imageProfileTransaction"
+        app:layout_constraintStart_toStartOf="@id/profileTopContainer"
+        app:layout_constraintBottom_toTopOf="@id/profileHint"
+        app:layout_constraintEnd_toEndOf="@id/profileTopContainer"
+        android:src="@drawable/placeholder"
+        />
+
+    <TextView
+        android:id="@+id/profileHint"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        android:gravity="center"
+        android:layout_margin="30dp"
+        app:layout_constraintStart_toStartOf="@id/profileTopContainer"
+        app:layout_constraintEnd_toEndOf="@id/profileTopContainer"
+        app:layout_constraintBottom_toBottomOf="@id/profileTopContainer"
+        android:text="Sentuh profile untuk mengganti gambar"
+        />
+
+    <ImageView
+        android:id="@+id/profileCheckButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_baseline_check_24"
+        app:layout_constraintEnd_toEndOf="@id/profileTopContainer"
+        app:layout_constraintTop_toTopOf="@id/profileTopContainer"/>
+
+    <ImageView
+        android:id="@+id/profileBackButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_baseline_arrow_back_24_white"
+        app:layout_constraintStart_toStartOf="@id/profileTopContainer"
+        app:layout_constraintTop_toTopOf="@id/profileTopContainer"/>
+
+    <LinearLayout
+        android:id="@+id/profileAccountName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/account_item_selector"
+        app:layout_constraintTop_toBottomOf="@id/profileTopContainer"
+        app:layout_constraintStart_toStartOf="@id/profileTopContainer"
+        app:layout_constraintEnd_toEndOf="@id/profileTopContainer" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nama Akun"
+            android:textSize="15sp"
+            android:textColor="@color/dayNightText"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_vertical"/>
+
+        <EditText
+            android:id="@+id/profileAccountNameinput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:maxLines="1"
+            android:maxLength="25"
+            android:singleLine="true"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="end"
+            android:background="@android:color/transparent"
+            android:hint="nama akun"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/profileAccountUsername"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/account_item_selector"
+        app:layout_constraintTop_toBottomOf="@id/profileAccountName"
+        app:layout_constraintStart_toStartOf="@id/profileTopContainer"
+        app:layout_constraintEnd_toEndOf="@id/profileTopContainer" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Username"
+            android:textSize="15sp"
+            android:textColor="@color/dayNightText"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_vertical"/>
+
+        <EditText
+            android:id="@+id/profileAccountUsernameInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:maxLength="12"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="end"
+            android:background="@android:color/transparent"
+            android:hint="username"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/profileAccountEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/account_item_selector"
+        app:layout_constraintTop_toBottomOf="@id/profileAccountUsername"
+        app:layout_constraintStart_toStartOf="@id/profileTopContainer"
+        app:layout_constraintEnd_toEndOf="@id/profileTopContainer" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textSize="15sp"
+            android:textColor="@color/dayNightText"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_vertical"/>
+
+        <EditText
+            android:id="@+id/profileAccountEmailInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:maxLength="30"
+            android:inputType="textEmailAddress"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="end"
+            android:background="@android:color/transparent"
+            android:hint="email"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/profileAccountPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/account_item_selector"
+        app:layout_constraintTop_toBottomOf="@id/profileAccountEmail"
+        app:layout_constraintStart_toStartOf="@id/profileTopContainer"
+        app:layout_constraintEnd_toEndOf="@id/profileTopContainer" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Password"
+            android:textSize="15sp"
+            android:textColor="@color/dayNightText"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_vertical"/>
+
+        <EditText
+            android:id="@+id/profileAccountPasswordInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:maxLength="25"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="end"
+            android:background="@android:color/transparent"
+            android:hint="*********"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/profileAccountDateOfBirth"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/account_item_selector"
+        app:layout_constraintTop_toBottomOf="@id/profileAccountPassword"
+        app:layout_constraintStart_toStartOf="@id/profileTopContainer"
+        app:layout_constraintEnd_toEndOf="@id/profileTopContainer" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tanggal, Tahun Lahir"
+            android:textSize="15sp"
+            android:textColor="@color/dayNightText"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/profileAccountDateOfBirthInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="end"
+            android:hint="1 Januari 1999"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/profileAccountGender"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/account_item_selector"
+        app:layout_constraintTop_toBottomOf="@id/profileAccountDateOfBirth"
+        app:layout_constraintStart_toStartOf="@id/profileTopContainer"
+        app:layout_constraintEnd_toEndOf="@id/profileTopContainer" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jenis Kelamin"
+            android:textSize="15sp"
+            android:textColor="@color/dayNightText"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_vertical"/>
+
+        <Spinner
+            android:id="@+id/profileAccountGenderInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:popupBackground="@drawable/account_bg_pressed"
+            android:background="@android:color/transparent"
+            android:gravity="end"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

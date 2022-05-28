@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.main.signin.SigninFragment"
+    tools:background="@drawable/aaron_burden_flower_unsplash">
+
+    <ImageView
+        android:id="@+id/fragmentSigninBackButton"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        android:layout_margin="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/fragmentSigninLogoText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="FloFie"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="55sp"
+        android:layout_margin="60dp"
+        android:fontFamily="@font/acherus_militant_1_light"
+        android:textStyle="bold"
+        android:transitionName="fragmentLogoTextTransaction"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/fragmentSigninEmailContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_rounded_inputtext"
+        android:paddingTop="10dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="15dp"
+        android:layout_margin="40dp"
+        android:alpha="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragmentSigninLogoText"
+        tools:alpha="1">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fragmentSiginInputLayoutEmail"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:startIconDrawable="@drawable/ic_outline_email_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fragmentSigninInputTextEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textSize="16sp"
+                android:padding="0dp"
+                android:maxLines="1"
+                android:maxLength="30"
+                android:inputType="textEmailAddress"
+                android:imeOptions="actionNext"
+                android:hint="Email"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fragmentSigninPaswordContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_rounded_inputtext"
+        android:paddingTop="10dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="15dp"
+        android:layout_marginTop="20dp"
+        android:alpha="0"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/fragmentSigninEmailContainer"
+        app:layout_constraintEnd_toEndOf="@id/fragmentSigninEmailContainer"
+        app:layout_constraintTop_toBottomOf="@id/fragmentSigninEmailContainer"
+        app:layout_constraintBottom_toTopOf="@id/fragmentSigninButton"
+        tools:alpha="1">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fragmentSiginInputLayoutPassword"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:passwordToggleEnabled="true"
+            app:startIconDrawable="@drawable/ic_outline_lock_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fragmentSigninInputTextPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:textSize="16sp"
+                android:padding="0dp"
+                android:maxLines="1"
+                android:maxLength="30"
+                android:imeOptions="actionDone"
+                android:hint="Password"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/fragmentSigninButton"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Masuk"
+        android:padding="10dp"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/acherus_militant_1_light"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:layout_margin="30dp"
+        android:transitionName="fragmentSigninButtonTransaction"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragmentSigninPaswordContainer"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

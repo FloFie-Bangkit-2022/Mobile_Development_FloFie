@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.main.mainpage.MainPageFragment"
+    tools:background="@drawable/aaron_burden_flower_unsplash">
+
+    <TextView
+        android:id="@+id/fragmentMainPageLogoText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="FloFie"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="55sp"
+        android:layout_margin="60dp"
+        android:fontFamily="@font/acherus_militant_1_light"
+        android:textStyle="bold"
+        android:transitionName="fragmentLogoTextTransaction"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/mainSigninButton"/>
+
+    <Button
+        android:id="@+id/mainSigninButton"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Mulai"
+        android:padding="10dp"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/acherus_militant_1_light"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:transitionName="fragmentSigninButtonTransaction"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/mainSignupButton"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12dp"
+        android:text="------ atau ------"
+        android:textColor="@color/white"
+        android:fontFamily="@font/acherus_militant_1_light"
+        app:layout_constraintStart_toStartOf="@id/mainSignupButton"
+        app:layout_constraintEnd_toEndOf="@id/mainSignupButton"
+        app:layout_constraintTop_toBottomOf="@id/mainSigninButton"
+        app:layout_constraintBottom_toTopOf="@id/mainSignupButton"/>
+
+    <Button
+        android:id="@+id/mainSignupButton"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Mendaftar"
+        android:padding="10dp"
+        android:fontFamily="@font/acherus_militant_1_light"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:layout_marginBottom="100dp"
+        android:transitionName="fragmentSignupButtonTransaction"
+        app:layout_constraintStart_toStartOf="@id/mainSigninButton"
+        app:layout_constraintEnd_toEndOf="@id/mainSigninButton"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

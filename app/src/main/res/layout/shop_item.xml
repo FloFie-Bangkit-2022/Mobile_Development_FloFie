@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/shopMainCardContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:foreground="?android:selectableItemBackground"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/shopCardImage"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:src="@drawable/placeholder"/>
+
+            <TextView
+                android:id="@+id/shopCardName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Nama Toko"
+                android:layout_margin="10dp"
+                android:maxLines="2"
+                android:textColor="@color/green_700"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/shopCardImage"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <ImageView
+                android:id="@+id/shopCardStar"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/gold_star"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="2dp"
+                app:layout_constraintStart_toEndOf="@id/shopCardImage"
+                app:layout_constraintTop_toBottomOf="@id/shopCardName"/>
+
+            <TextView
+                android:id="@+id/shopCardRatting"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="4.9"
+                android:textSize="12sp"
+                android:layout_marginStart="5dp"
+                app:layout_constraintStart_toEndOf="@id/shopCardStar"
+                app:layout_constraintTop_toTopOf="@id/shopCardStar"
+                app:layout_constraintBottom_toBottomOf="@id/shopCardStar"/>
+
+            <TextView
+                android:id="@+id/shopCardAdress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:maxLines="4"
+                android:textStyle="bold"
+                android:textSize="11sp"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintStart_toEndOf="@id/shopCardImage"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shopCardStar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="Jl. Prof dr. Hamka Kel Bringin Kec Semarang Barat, Ngaliyan, Kec. Ngaliyan, Kota Semarang, Jawa Tengah 50184"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
