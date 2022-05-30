@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="camera_container_guide">Preview Gambar akan tampil di sini \n\n Klik Camera untuk memulai mengambil gambar</string>
+    <string name="camera_container_check_guide">Tombol di bawah\n untuk memproses \n dan mendapat hasil</string>
+    <string name="clear">Bersihkan</string>
+    <string name="shop_picture">Gambar Toko</string>
+    <string name="shop_name">Nama Toko</string>
+    <string name="rating">4.9</string>
+</resources>

@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Preview Gambar akan tampil di sini \n\n Klik Camera untuk memulai mengambil gambar"
+                android:text="@string/camera_container_guide"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -43,7 +43,8 @@
                 android:id="@+id/cameraFragmentCameraGuideCheck"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" Tombol di bawah\n untuk memproses \n dan mendapat hasil "
+                android:text="@string/camera_container_check_guide"
+                android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
@@ -68,6 +69,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/ic_baseline_check_24"
+        android:contentDescription="@string/process"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/cameraFragmentCamera"
         app:layout_constraintStart_toEndOf="@id/cameraFragmentCamera"
@@ -78,7 +80,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="100dp"
-        android:text="Camera"
+        android:text="@string/camera"
         app:layout_constraintStart_toEndOf="@id/cameraFragmentClearBtn"
         app:layout_constraintEnd_toStartOf="@id/cameraFragmentCheckBtn"
         app:layout_constraintBottom_toBottomOf="parent"/>
@@ -87,6 +89,7 @@
         android:id="@+id/cameraFragmentClearBtn"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:contentDescription="@string/clear"
         android:background="@drawable/ic_baseline_clear_24_white"
         app:layout_constraintEnd_toStartOf="@id/cameraFragmentCamera"
         app:layout_constraintStart_toStartOf="parent"

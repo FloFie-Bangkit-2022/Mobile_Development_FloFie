@@ -184,19 +184,14 @@ class MainCameraActivity : AppCompatActivity() {
     private val launcherIntentGaleri = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {
-        Log.d("CEK_TRIGGERED", "Intent Galery trigered")
         if (it.resultCode == RESULT_OK) {
             val selectedImage : Uri = it?.data?.data as Uri
-            Log.d("CEK_FILE_FROM_GAL", selectedImage.toString())
 
             val myFile = uriToFile(selectedImage, this)
             getFile = myFile
 
-            Log.d("CEK_FILE_CODED", getFile.toString())
-
             val intentBackToCameraFragment = Intent()
 
-            Log.d("CEK_FILE_TRIGGERED", getFile.toString())
             intentBackToCameraFragment.putExtra("imageGaleryFile", getFile)
             setResult(CameraFragment.GALERY_RESULT, intentBackToCameraFragment)
             finish()

@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter
 import com.capstone.flofie.databinding.ActivityProfileSettingsBinding
 import java.util.*
 import android.widget.DatePicker
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.capstone.flofie.R
@@ -122,7 +123,7 @@ class ProfileSettingsActivity : AppCompatActivity(), DatePickerDialog.OnDateSetL
                     }
                 }
                 else {
-                    Log.d("CEK_PICK_GALERY", "Error : ", )
+                    Toast.makeText(this, "Error: Failed to start crop", Toast.LENGTH_SHORT).show()
                 }
             }
             CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
@@ -133,7 +134,7 @@ class ProfileSettingsActivity : AppCompatActivity(), DatePickerDialog.OnDateSetL
                     }
                 }
                 else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                    Log.d("CEK_ERROR_CROP", "Crop error: "+ result.error)
+                    Toast.makeText(this, "Crop error: "+ result.error, Toast.LENGTH_SHORT).show()
                 }
             }
         }

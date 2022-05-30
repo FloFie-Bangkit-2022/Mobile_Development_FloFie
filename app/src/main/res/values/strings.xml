@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CapstoneProto</string>
+    <string name="app_name">FloFie</string>
     <string name="title_activity_main_host">MainActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -7,8 +7,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_account">Account</string>
     <string name="title_camera">Camera</string>
+
     <string name="search_flower">Cari Bunga</string>
     <string name="clear_history">Bersihkan Riwayat</string>
+
     <string name="tab_layout_description">Deskripsi</string>
     <string name="tab_layout_shop">Toko</string>
 
@@ -19,5 +21,39 @@
 
     <string name="temp">Tulip (bahasa Latin: Tulipa) merupakan nama genus untuk 100 spesies tumbuhan berbunga yang termasuk ke dalam keluarga Liliaceae. Tulip berasal dari Asia Tengah, tumbuh liar di kawasan pegunungan Pamir dan pegunungan Hindu Kush dan stepa di Kazakhstan. Negeri Belanda terkenal sebagai negeri bunga tulip. Tulip juga merupakan bunga nasional Iran dan Turki.</string>
     <string name="temp1">Tulip merupakan tumbuhan tahunan berumbi yang tingginya antara 10–70 cm, daunnya berlilin, berbentuk sempit memanjang berwarna hijau nuansa kebiru-biruan, dan bunganya berukuran besar terdiri 6 helai daun mahkota. Tulip hasil persilangan menghasilkan bunga berwarna tunggal, merah, oranye, kuning, hijau, biru, ungu, atau berbagai macam kombinasi dan gradasi warna. Tulip menghasilkan biji-biji berbentuk bundar pipih yang dibungkus kapsul kering.</string>
+
     <string name="title_activity_shop_maps">Map</string>
+
+    <string name="camera_container_guide">Preview Gambar akan tampil di sini \n\n Klik Camera untuk memulai mengambil gambar</string>
+    <string name="camera_container_check_guide">Tombol di bawah\n untuk memproses \n dan mendapat hasil</string>
+    <string name="camera">Kamera</string>
+    <string name="clear">Bersihkan</string>
+    <string name="process">Proses</string>
+    <string name="flashlight">FlashLight</string>
+    <string name="back">Kembali</string>
+    <string name="galeri">Galeri</string>
+
+    <string name="photo_profile">Foto Profil</string>
+    <string name="profile_change_guide">Sentuh profile untuk mengganti gambar</string>
+    <string name="account_name">Nama Akun</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="date_and_place">Tanggal, Tahun Lahir</string>
+    <string name="date_and_place_hint">1 Januari 1999</string>
+    <string name="gender">Jenis Kelamin</string>
+    <string name="log_out">Log Out</string>
+    <string name="profile">Profile</string>
+    <string name="favorite">Favorit</string>
+
+    <string name="search_bar_hint">Cari Bungamu di Sini</string>
+    <string name="flower_image">Flower Image</string>
+
+    <string name="start">Mulai</string>
+    <string name="sign_up">Mendaftar</string>
+    <string name="sign_in">Masuk</string>
+
+    <string name="shop_picture">Gambar Toko</string>
+    <string name="shop_name">Nama Toko</string>
+    <string name="rating">4.9</string>
 </resources>

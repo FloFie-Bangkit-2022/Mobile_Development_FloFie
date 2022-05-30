@@ -138,10 +138,7 @@ class CameraFragment : Fragment() {
             binding.cameraFragmentCameraGuide.visibility = View.GONE
             binding.cameraFragmentCameraGuideCheck.visibility = View.GONE
 
-            Log.d("CEK_FILE_RESULTCODE", "From galery trigered, result : "+ it.resultCode)
             val myUriFile = it.data?.getSerializableExtra("imageGaleryFile") as? File
-
-            Log.d("CEK_FILE_RESULT", myUriFile.toString())
 
             getFile = myUriFile
             val result = BitmapFactory.decodeFile(myUriFile?.path)

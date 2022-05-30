@@ -1,6 +1,5 @@
 package com.capstone.flofie.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -15,7 +14,6 @@ class SearchHistoryAdapter : RecyclerView.Adapter<SearchHistoryAdapter.ListViewH
 
     private val listSearchHistory = ArrayList<SearchHistory>()
     fun setListSearchHistory(listHistory : List<SearchHistory>) {
-        Log.d("CEK_SENDED_LIST_HIST", listHistory.toString())
         val diffCallback = SearchHistoryDiffCallback(listSearchHistory, listHistory)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         listSearchHistory.clear()

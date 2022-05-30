@@ -28,7 +28,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cari Bungamu di Sini"
+        android:text="@string/search_bar_hint"
         android:layout_marginStart="8dp"
         app:layout_constraintStart_toEndOf="@id/fakeSearchIcon"
         app:layout_constraintTop_toTopOf="@id/fakeSearchIcon"

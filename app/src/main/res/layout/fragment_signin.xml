@@ -13,6 +13,7 @@
         android:layout_height="35dp"
         android:src="@drawable/ic_baseline_arrow_back_24"
         android:layout_margin="20dp"
+        android:contentDescription="@string/back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
@@ -21,7 +22,7 @@
         android:id="@+id/fragmentSigninLogoText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="FloFie"
+        android:text="@string/app_name"
         android:textColor="@color/white"
         android:gravity="center"
         android:textSize="55sp"
@@ -68,7 +69,7 @@
                 android:maxLength="30"
                 android:inputType="textEmailAddress"
                 android:imeOptions="actionNext"
-                android:hint="Email"/>
+                android:hint="@string/email"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -112,7 +113,7 @@
                 android:maxLines="1"
                 android:maxLength="30"
                 android:imeOptions="actionDone"
-                android:hint="Password"/>
+                android:hint="@string/password"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -122,7 +123,7 @@
         android:id="@+id/fragmentSigninButton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="Masuk"
+        android:text="@string/sign_in"
         android:padding="10dp"
         android:layout_marginBottom="20dp"
         android:fontFamily="@font/acherus_militant_1_light"
