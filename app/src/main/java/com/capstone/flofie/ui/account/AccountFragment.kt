@@ -15,6 +15,9 @@ import com.capstone.flofie.ViewModelFactory
 import com.capstone.flofie.databinding.FragmentAccountBinding
 import com.capstone.flofie.ui.account.profile.ProfileSettingsActivity
 import androidx.appcompat.app.AlertDialog
+import com.capstone.flofie.MainHostActivity
+import com.capstone.flofie.database.loginPreferences.LoginPreferences
+import com.capstone.flofie.ui.main.MainActivity
 
 
 class AccountFragment : Fragment() {
@@ -34,9 +37,13 @@ class AccountFragment : Fragment() {
     }
 
     private fun setViewModel() {
+
+        val dataStore = (activity as MainHostActivity)?.getDataStore()
+        val preferences = LoginPreferences.getInstance(dataStore)
+
         accountViewModel = ViewModelProvider(
             this,
-            ViewModelFactory()
+            ViewModelFactory(preferences)
         ) [AccountViewModel::class.java]
     }
 
@@ -58,9 +65,15 @@ class AccountFragment : Fragment() {
         logoutBuilder.setMessage("Yakin ingin keluar?")
         logoutBuilder.setCancelable(true)
 
-        logoutBuilder.setPositiveButton("Yes") { dialog, id -> dialog.cancel() }
+        logoutBuilder.setPositiveButton("Yes") { dialog, id ->
+            accountViewModel.saveLoginStatus(false)
+            startActivity(Intent(activity, MainActivity::class.java))
+            activity?.finish()
+        }
 
-        logoutBuilder.setNegativeButton("No") { dialog, id -> dialog.cancel() }
+        logoutBuilder.setNegativeButton("No") { dialog, id ->
+            dialog.cancel()
+        }
 
         val logoutAlret : AlertDialog = logoutBuilder.create()
         logoutAlret.show()

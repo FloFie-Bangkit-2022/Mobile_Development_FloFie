@@ -3,6 +3,7 @@ package com.capstone.flofie.ui.camera
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Handler
@@ -16,8 +17,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.capstone.flofie.ViewModelFactory
 import com.capstone.flofie.databinding.FragmentCameraBinding
+import com.capstone.flofie.model.Resultbox
 import com.capstone.flofie.ui.detail.DetailActivity
 import java.io.File
 
@@ -27,8 +30,6 @@ class CameraFragment : Fragment() {
     private var _binding : FragmentCameraBinding? = null
 
     private val binding get() = _binding!!
-
-    private var getFile : File? = null
 
     companion object {
         const val CAMERA_RESULT = 200
@@ -79,6 +80,14 @@ class CameraFragment : Fragment() {
         }
 
         setupButton()
+
+        if (cameraViewModel.getFile != null) {
+            binding.cameraFragmentCheckBtn.isEnabled = true
+            existStat()
+        } else {
+            binding.cameraFragmentCheckBtn.isEnabled = false
+            emptyStat()
+        }
     }
 
     private fun setupButton() {
@@ -87,11 +96,16 @@ class CameraFragment : Fragment() {
         }
 
         binding.cameraFragmentCheckBtn.setOnClickListener {
-            if (getFile != null) {
+            if (cameraViewModel.getFile != null) {
                 showLoading(true)
                 Handler().postDelayed({
                     showLoading(false)
-                    binding.cameraFragmentResultBox.visibility = View.VISIBLE
+                    val result = Resultbox(
+                        "https://cdn.pixabay.com/photo/2013/07/21/13/00/rose-165819__340.jpg",
+                        "Tulip")
+                    cameraViewModel.result = result
+//                    cameraViewModel.result.value = result
+                    setResultBox(result)
                 }, 2000)
             }
         }
@@ -101,14 +115,17 @@ class CameraFragment : Fragment() {
         }
 
         binding.cameraFragmentClearBtn.setOnClickListener {
-            if (getFile != null) {
-                getFile = null
-                binding.cameraFragmentResultBox.visibility = View.GONE
-                binding.cameraFragmentPreviewContainer.setImageBitmap(null)
-                binding.cameraFragmentCameraGuide.visibility = View.VISIBLE
-                binding.cameraFragmentCameraGuideCheck.visibility = View.VISIBLE
-                binding.cameraFragmentCheckBtn.isEnabled = false
+            if (cameraViewModel.getFile != null) {
+//                nullStat()
+                emptyStat()
             }
+//            cameraViewModel.getFile?.observe(this, {
+//                if (it != null) {
+//                    cameraViewModel.getFile?.value = null
+//                    cameraViewModel.result = null
+//                    emptyStat()
+//                }
+//            })
         }
     }
 
@@ -122,26 +139,35 @@ class CameraFragment : Fragment() {
     ) {
         if (it.resultCode == CAMERA_RESULT) {
 
-            binding.cameraFragmentResultBox.visibility = View.GONE
-            binding.cameraFragmentCameraGuide.visibility = View.GONE
-            binding.cameraFragmentCameraGuideCheck.visibility = View.GONE
+//            binding.cameraFragmentResultBox.visibility = View.GONE
+//            binding.cameraFragmentCameraGuide.visibility = View.GONE
+//            binding.cameraFragmentCameraGuideCheck.visibility = View.GONE
 
             val myFile = it.data?.getSerializableExtra("picture") as? File
             Log.d("CEK_FILE", myFile.toString())
-            getFile = myFile
-            val result = BitmapFactory.decodeFile(myFile?.path)
+
+            cameraViewModel.getFile = myFile
+//            cameraViewModel.getFile?.value = myFile
+
+            existStat()
+
+            val result = decodeFileToBitmap(myFile)
             binding.cameraFragmentPreviewContainer.setImageBitmap(result)
         }
         if (it.resultCode == GALERY_RESULT) {
 
-            binding.cameraFragmentResultBox.visibility = View.GONE
-            binding.cameraFragmentCameraGuide.visibility = View.GONE
-            binding.cameraFragmentCameraGuideCheck.visibility = View.GONE
+//            binding.cameraFragmentResultBox.visibility = View.GONE
+//            binding.cameraFragmentCameraGuide.visibility = View.GONE
+//            binding.cameraFragmentCameraGuideCheck.visibility = View.GONE
 
             val myUriFile = it.data?.getSerializableExtra("imageGaleryFile") as? File
 
-            getFile = myUriFile
-            val result = BitmapFactory.decodeFile(myUriFile?.path)
+            cameraViewModel.getFile = myUriFile
+//            cameraViewModel.getFile?.value = myUriFile
+
+            existStat()
+
+            val result = decodeFileToBitmap(myUriFile)
 
             binding.cameraFragmentPreviewContainer.setImageBitmap(result)
         }
@@ -156,14 +182,48 @@ class CameraFragment : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (getFile != null) {
-            binding.cameraFragmentCheckBtn.isEnabled = true
-        } else {
-            binding.cameraFragmentCheckBtn.isEnabled = false
+    private fun emptyStat() {
+        binding.cameraFragmentResultBox.visibility = View.GONE
+        binding.cameraFragmentPreviewContainer.setImageBitmap(null)
+        binding.cameraFragmentCameraGuide.visibility = View.VISIBLE
+        binding.cameraFragmentCameraGuideCheck.visibility = View.VISIBLE
+
+        cameraViewModel.getFile = null
+        cameraViewModel.result = null
+        binding.cameraFragmentCheckBtn.isEnabled = false
+    }
+
+    private fun existStat() {
+        binding.cameraFragmentCheckBtn.isEnabled = true
+        binding.cameraFragmentPreviewContainer.setImageBitmap(decodeFileToBitmap(cameraViewModel.getFile))
+        binding.cameraFragmentCameraGuide.visibility = View.GONE
+        binding.cameraFragmentCameraGuideCheck.visibility = View.GONE
+        if (cameraViewModel.result != null) {
+            binding.cameraFragmentResultBox.visibility = View.VISIBLE
+            setResultBox(cameraViewModel.result!!)
         }
     }
+
+    private fun decodeFileToBitmap(file : File?) : Bitmap {
+        return BitmapFactory.decodeFile(file?.path)
+    }
+
+    private fun setResultBox(result : Resultbox) {
+        binding.cameraFragmentResultBox.visibility = View.VISIBLE
+        Glide.with(activity!!).load(result?.image).into(binding.cameraFragmentResultBoxImage)
+        binding.cameraFragmentResultBoxFlowerName.text = result?.flowerName
+    }
+
+//    override fun onResume() {
+//        super.onResume()
+//        if (cameraViewModel.getFile != null) {
+//            binding.cameraFragmentCheckBtn.isEnabled = true
+//            existStat()
+//        } else {
+//            binding.cameraFragmentCheckBtn.isEnabled = false
+//            emptyStat()
+//        }
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

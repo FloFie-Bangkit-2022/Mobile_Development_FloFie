@@ -1,4 +1,4 @@
-package com.capstone.flofie.database
+package com.capstone.flofie.database.searchHistory
 
 import android.content.Context
 import androidx.room.Database

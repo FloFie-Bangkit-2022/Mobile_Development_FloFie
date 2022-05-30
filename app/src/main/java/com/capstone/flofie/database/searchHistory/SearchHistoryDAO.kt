@@ -1,4 +1,4 @@
-package com.capstone.flofie.database
+package com.capstone.flofie.database.searchHistory
 
 import androidx.lifecycle.LiveData
 import androidx.room.*

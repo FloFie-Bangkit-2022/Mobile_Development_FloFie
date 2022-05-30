@@ -41,7 +41,7 @@ class SignupFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         }
 
         binding.fragmentSignupButton.setOnClickListener {
-            startActivity(Intent(activity, MainHostActivity::class.java))
+//            startActivity(Intent(activity, MainHostActivity::class.java))
         }
 
         binding.fragmentSignupInputTextDate.setOnClickListener {

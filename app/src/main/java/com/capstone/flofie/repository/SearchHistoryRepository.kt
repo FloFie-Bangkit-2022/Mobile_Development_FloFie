@@ -2,8 +2,8 @@ package com.capstone.flofie.repository
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import com.capstone.flofie.database.SearchHistoryDAO
-import com.capstone.flofie.database.SearchHistoryRoomDatabase
+import com.capstone.flofie.database.searchHistory.SearchHistoryDAO
+import com.capstone.flofie.database.searchHistory.SearchHistoryRoomDatabase
 import com.capstone.flofie.model.SearchHistory
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors

@@ -1,10 +1,15 @@
 package com.capstone.flofie.ui.detail
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.viewpager2.widget.ViewPager2
 import com.capstone.flofie.R
 import com.capstone.flofie.adapter.SectionPageAdapter
+import com.capstone.flofie.database.loginPreferences.LoginPreferences
 import com.capstone.flofie.databinding.ActivityDetailBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator

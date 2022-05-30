@@ -1,13 +1,19 @@
 package com.capstone.flofie
 
+import android.content.Context
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.capstone.flofie.databinding.ActivityMainHostBinding
+
+private val Context.dataStore : DataStore<Preferences> by preferencesDataStore(name = "login")
 
 class MainHostActivity : AppCompatActivity() {
 
@@ -32,5 +38,9 @@ class MainHostActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+
+    fun getDataStore() : DataStore<Preferences> {
+        return dataStore
     }
 }
