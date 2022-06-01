@@ -7,7 +7,6 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -104,7 +103,6 @@ class CameraFragment : Fragment() {
                         "https://cdn.pixabay.com/photo/2013/07/21/13/00/rose-165819__340.jpg",
                         "Tulip")
                     cameraViewModel.result = result
-//                    cameraViewModel.result.value = result
                     setResultBox(result)
                 }, 2000)
             }
@@ -116,16 +114,8 @@ class CameraFragment : Fragment() {
 
         binding.cameraFragmentClearBtn.setOnClickListener {
             if (cameraViewModel.getFile != null) {
-//                nullStat()
                 emptyStat()
             }
-//            cameraViewModel.getFile?.observe(this, {
-//                if (it != null) {
-//                    cameraViewModel.getFile?.value = null
-//                    cameraViewModel.result = null
-//                    emptyStat()
-//                }
-//            })
         }
     }
 
@@ -139,15 +129,8 @@ class CameraFragment : Fragment() {
     ) {
         if (it.resultCode == CAMERA_RESULT) {
 
-//            binding.cameraFragmentResultBox.visibility = View.GONE
-//            binding.cameraFragmentCameraGuide.visibility = View.GONE
-//            binding.cameraFragmentCameraGuideCheck.visibility = View.GONE
-
             val myFile = it.data?.getSerializableExtra("picture") as? File
-            Log.d("CEK_FILE", myFile.toString())
-
             cameraViewModel.getFile = myFile
-//            cameraViewModel.getFile?.value = myFile
 
             existStat()
 
@@ -156,14 +139,9 @@ class CameraFragment : Fragment() {
         }
         if (it.resultCode == GALERY_RESULT) {
 
-//            binding.cameraFragmentResultBox.visibility = View.GONE
-//            binding.cameraFragmentCameraGuide.visibility = View.GONE
-//            binding.cameraFragmentCameraGuideCheck.visibility = View.GONE
-
             val myUriFile = it.data?.getSerializableExtra("imageGaleryFile") as? File
 
             cameraViewModel.getFile = myUriFile
-//            cameraViewModel.getFile?.value = myUriFile
 
             existStat()
 
@@ -210,20 +188,9 @@ class CameraFragment : Fragment() {
 
     private fun setResultBox(result : Resultbox) {
         binding.cameraFragmentResultBox.visibility = View.VISIBLE
-        Glide.with(activity!!).load(result?.image).into(binding.cameraFragmentResultBoxImage)
-        binding.cameraFragmentResultBoxFlowerName.text = result?.flowerName
+        Glide.with(activity!!).load(result.image).into(binding.cameraFragmentResultBoxImage)
+        binding.cameraFragmentResultBoxFlowerName.text = result.flowerName
     }
-
-//    override fun onResume() {
-//        super.onResume()
-//        if (cameraViewModel.getFile != null) {
-//            binding.cameraFragmentCheckBtn.isEnabled = true
-//            existStat()
-//        } else {
-//            binding.cameraFragmentCheckBtn.isEnabled = false
-//            emptyStat()
-//        }
-//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

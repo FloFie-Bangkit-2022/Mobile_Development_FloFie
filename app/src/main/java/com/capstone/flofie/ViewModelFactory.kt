@@ -6,7 +6,6 @@ import com.capstone.flofie.database.loginPreferences.LoginPreferences
 import com.capstone.flofie.ui.account.AccountViewModel
 import com.capstone.flofie.ui.account.profile.ProfileSettingsViewModel
 import com.capstone.flofie.ui.camera.CameraViewModel
-import com.capstone.flofie.ui.dashboard.DashboardViewModel
 import com.capstone.flofie.ui.detail.DetailViewModel
 import com.capstone.flofie.ui.home.HomeViewModel
 import com.capstone.flofie.ui.main.MainViewModel
@@ -20,9 +19,6 @@ class ViewModelFactory(private val preferences: LoginPreferences? = null) : View
         return when {
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
                 HomeViewModel() as T
-            }
-            modelClass.isAssignableFrom(DashboardViewModel::class.java) -> {
-                DashboardViewModel() as T
             }
             modelClass.isAssignableFrom(CameraViewModel::class.java) -> {
                 CameraViewModel() as T

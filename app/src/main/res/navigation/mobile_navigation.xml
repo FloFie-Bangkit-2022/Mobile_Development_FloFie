@@ -12,12 +12,6 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.capstone.flofie.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
-
-    <fragment
         android:id="@+id/navigation_camera"
         android:name="com.capstone.flofie.ui.camera.CameraFragment"
         android:label="@string/title_camera"
