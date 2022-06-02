@@ -10,6 +10,7 @@ import com.capstone.flofie.ui.detail.DetailViewModel
 import com.capstone.flofie.ui.home.HomeViewModel
 import com.capstone.flofie.ui.main.MainViewModel
 import com.capstone.flofie.ui.main.signin.SigninViewModel
+import com.capstone.flofie.ui.main.signup.SignupViewModel
 import java.lang.IllegalArgumentException
 
 class ViewModelFactory(private val preferences: LoginPreferences? = null) : ViewModelProvider.NewInstanceFactory() {
@@ -34,6 +35,9 @@ class ViewModelFactory(private val preferences: LoginPreferences? = null) : View
             }
             modelClass.isAssignableFrom(SigninViewModel::class.java) -> {
                 SigninViewModel(preferences!!) as T
+            }
+            modelClass.isAssignableFrom(SignupViewModel::class.java) -> {
+                SignupViewModel() as T
             }
             modelClass.isAssignableFrom(MainViewModel::class.java) -> {
                 MainViewModel(preferences!!) as T

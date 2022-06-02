@@ -18,6 +18,7 @@ import androidx.appcompat.app.AlertDialog
 import com.capstone.flofie.MainHostActivity
 import com.capstone.flofie.database.loginPreferences.LoginPreferences
 import com.capstone.flofie.ui.main.MainActivity
+import com.google.firebase.auth.FirebaseAuth
 
 
 class AccountFragment : Fragment() {
@@ -26,6 +27,8 @@ class AccountFragment : Fragment() {
     private var _binding : FragmentAccountBinding? = null
 
     private val binding get() = _binding!!
+
+    private lateinit var mFirebaseAuth: FirebaseAuth
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -51,6 +54,13 @@ class AccountFragment : Fragment() {
 
         Glide.with(activity!!).load(R.drawable.placeholder).circleCrop().into(binding.accountImageProfile)
 
+        mFirebaseAuth = FirebaseAuth.getInstance()
+
+        setupButton()
+    }
+
+    private fun setupButton() {
+
         binding.accountMenu1.setOnClickListener {
             moveWithAnimation()
         }
@@ -66,6 +76,9 @@ class AccountFragment : Fragment() {
         logoutBuilder.setCancelable(true)
 
         logoutBuilder.setPositiveButton("Yes") { dialog, id ->
+
+            mFirebaseAuth.signOut()
+
             accountViewModel.saveLoginStatus(false)
             startActivity(Intent(activity, MainActivity::class.java))
             activity?.finish()

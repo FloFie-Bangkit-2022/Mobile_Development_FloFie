@@ -56,4 +56,6 @@
     <string name="shop_picture">Gambar Toko</string>
     <string name="shop_name">Nama Toko</string>
     <string name="rating">4.9</string>
+
+    <string name="errorInput">Harus diisi!</string>
 </resources>

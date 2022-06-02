@@ -13,6 +13,8 @@ import com.capstone.flofie.R
 import com.capstone.flofie.ViewModelFactory
 import com.capstone.flofie.database.loginPreferences.LoginPreferences
 import com.capstone.flofie.databinding.ActivityMainBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 private val Context.dataStore : DataStore<Preferences> by preferencesDataStore(name = "login")
 
@@ -21,6 +23,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     private lateinit var mainViewModel: MainViewModel
 
+    private lateinit var mFirebaseAuth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -28,6 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
+        mFirebaseAuth = FirebaseAuth.getInstance()
         setViewModel()
 
         checkLogin()
@@ -50,10 +55,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun checkLogin() {
-        mainViewModel.getLoginStatus().observe(this, {
-            if (it == true) {
-                startActivity(Intent(this, MainHostActivity::class.java))
-                finish()
+        mainViewModel.getLoginStatus().observe(this, { loginStatus ->
+
+            val firebaseUser : FirebaseUser? = mFirebaseAuth.currentUser
+
+            if (firebaseUser != null) {
+                if (loginStatus == true) {
+                    startActivity(Intent(this, MainHostActivity::class.java))
+                    finish()
+                }
+                else if (loginStatus == false) {
+                    mainViewModel.saveLoginStatus(true)
+                    startActivity(Intent(this, MainHostActivity::class.java))
+                    finish()
+                }
             }
         })
     }

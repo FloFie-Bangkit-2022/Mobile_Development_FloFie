@@ -1,9 +1,6 @@
 package com.capstone.flofie.ui.main.signin
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.capstone.flofie.database.loginPreferences.LoginPreferences
 import kotlinx.coroutines.launch
 
@@ -14,4 +11,10 @@ class SigninViewModel(private val preferences: LoginPreferences) : ViewModel() {
             preferences.saveLoginStatus(isLogin)
         }
     }
+
+    val _isLoading = MutableLiveData<Boolean>()
+    val isLoading : LiveData<Boolean> = _isLoading
+
+    val _isActive = MutableLiveData<Boolean>()
+    val isActive : LiveData<Boolean> = _isActive
 }

@@ -7,6 +7,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,9 +20,16 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.capstone.flofie.ViewModelFactory
 import com.capstone.flofie.databinding.FragmentCameraBinding
+import com.capstone.flofie.ml.Flower
 import com.capstone.flofie.model.Resultbox
 import com.capstone.flofie.ui.detail.DetailActivity
+import org.tensorflow.lite.DataType
+import org.tensorflow.lite.support.image.TensorImage
+import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 import java.io.File
+import java.nio.ByteOrder
+
+import java.nio.ByteBuffer
 
 class CameraFragment : Fragment() {
 
@@ -96,15 +104,19 @@ class CameraFragment : Fragment() {
 
         binding.cameraFragmentCheckBtn.setOnClickListener {
             if (cameraViewModel.getFile != null) {
-                showLoading(true)
-                Handler().postDelayed({
-                    showLoading(false)
-                    val result = Resultbox(
-                        "https://cdn.pixabay.com/photo/2013/07/21/13/00/rose-165819__340.jpg",
-                        "Tulip")
-                    cameraViewModel.result = result
-                    setResultBox(result)
-                }, 2000)
+                if (binding.cameraFragmentPreviewContainer.drawable != null) {
+                    showLoading(true)
+                    Handler().postDelayed({
+                        showLoading(false)
+                        val bitmap = decodeFileToBitmap(cameraViewModel.getFile)
+                        getOutput(bitmap)
+//                    val result = Resultbox(
+//                        "https://cdn.pixabay.com/photo/2013/07/21/13/00/rose-165819__340.jpg",
+//                        "Tulip")
+//                    cameraViewModel.result = result
+//                    setResultBox(result)
+                    }, 2000)
+                }
             }
         }
 
@@ -117,6 +129,61 @@ class CameraFragment : Fragment() {
                 emptyStat()
             }
         }
+    }
+
+    private fun getOutput(bitmap : Bitmap) {
+
+        val fileName = "label.txt"
+        val inputSting = activity?.application?.assets?.open(fileName)?.bufferedReader().use {
+            it?.readText()
+        }
+        val label = inputSting?.split("\n")
+
+        try {
+            val resized = Bitmap.createScaledBitmap(bitmap, 240, 240, true)
+            val model = Flower.newInstance(requireContext())
+
+            // Creates inputs for reference.
+            val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 240, 240, 3), DataType.FLOAT32)
+
+            val image = TensorImage.fromBitmap(resized).apply {
+                DataType.FLOAT32
+            }
+            image.load(resized)
+            val byteBuffer = image.buffer
+
+//            val tfBuffer = TensorImage.fromBitmap(resized)
+//            val byteBuffer = tfBuffer.buffer
+
+            inputFeature0.loadBuffer(byteBuffer)
+
+            // Runs model inference and gets result.
+            val outputs = model.process(inputFeature0)
+            val outputFeature0 = outputs.outputFeature0AsTensorBuffer
+
+            val max = getMax(outputFeature0.floatArray)
+
+            binding.textResult.setText(label?.get(max))
+        } catch (e : Exception) {
+            Toast.makeText(activity, e.message, Toast.LENGTH_LONG).show()
+            Log.d("CEK_BUFFER", e.message.toString())
+        }
+
+        // Releases model resources if no longer used.
+//        model.close()
+    }
+
+    private fun getMax(arr : FloatArray) : Int {
+        var mid = 0
+        var min = 0.0f
+
+        for (i in 0..4) {
+            if (arr[i] > min) {
+                mid = i
+                min = arr[i]
+            }
+        }
+        return mid
     }
 
     private fun startCamera() {

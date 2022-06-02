@@ -11,8 +11,6 @@ import kotlinx.coroutines.flow.map
 class LoginPreferences private constructor(private val loginDataStore : DataStore<Preferences>) {
 
     private val LOGIN_KEY = booleanPreferencesKey("login_status")
-    private val EMAIL = stringPreferencesKey("email")
-    private val PASSWORD = stringPreferencesKey("password")
 
     fun getLoginStatus() : Flow<Boolean> {
         return loginDataStore.data.map { preferences ->

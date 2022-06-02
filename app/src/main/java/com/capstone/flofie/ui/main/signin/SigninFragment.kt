@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.datastore.core.DataStore
 import androidx.datastore.dataStoreFile
 import androidx.datastore.preferences.core.Preferences
@@ -20,6 +21,7 @@ import com.capstone.flofie.ViewModelFactory
 import com.capstone.flofie.database.loginPreferences.LoginPreferences
 import com.capstone.flofie.databinding.FragmentSigninBinding
 import com.capstone.flofie.ui.main.MainActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class SigninFragment : Fragment() {
 
@@ -28,9 +30,9 @@ class SigninFragment : Fragment() {
 
     private lateinit var signinViewModel: SigninViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        setViewModel()
+    private lateinit var mFirebaseAuth: FirebaseAuth
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentSigninBinding.inflate(inflater, container, false)
         val root = binding.root
         return root
@@ -38,23 +40,82 @@ class SigninFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setViewModel()
 
         sharedElementEnterTransition = TransitionInflater.from(context!!).inflateTransition(android.R.transition.move)
+
+        signinViewModel.isLoading.observe(this, {
+            showLoading(it)
+        })
+        signinViewModel.isActive.observe(this, {
+            activeOrInactiveButton(it)
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         playAnimation()
 
+        mFirebaseAuth = FirebaseAuth.getInstance()
+
+        setupButton()
+    }
+
+    private fun setupButton() {
         binding.fragmentSigninBackButton.setOnClickListener {
             activity?.onBackPressed()
         }
 
         binding.fragmentSigninButton.setOnClickListener {
-            signinViewModel.saveLoginStatus(true)
 
-//            startActivity(Intent(activity, MainHostActivity::class.java))
-//            activity?.finish()
+            try {
+
+                showLoading(true)
+                setLoadingState(true)
+                activeOrInactiveButton(false)
+                setActive(false)
+
+                mFirebaseAuth.signInWithEmailAndPassword(
+                    binding.fragmentSigninInputTextEmail.text.toString(),
+                    binding.fragmentSigninInputTextPassword.text.toString()
+                )
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            showLoading(false)
+                            activeOrInactiveButton(true)
+                            setLoadingState(false)
+                            setActive(true)
+                            signinViewModel.saveLoginStatus(true)
+                        }
+                        else {
+                            showLoading(false)
+                            activeOrInactiveButton(true)
+                            setLoadingState(false)
+                            setActive(true)
+                            Toast.makeText(activity, "Gagal Login", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    .addOnFailureListener { error ->
+                        showLoading(false)
+                        activeOrInactiveButton(true)
+                        setLoadingState(false)
+                        setActive(true)
+                        Toast.makeText(activity, "Kesalahan karena : " + error.message, Toast.LENGTH_SHORT).show()
+                    }
+                    .addOnCanceledListener {
+                        showLoading(false)
+                        activeOrInactiveButton(true)
+                        setLoadingState(false)
+                        setActive(true)
+                        Toast.makeText(activity, "Login dibatalkan", Toast.LENGTH_SHORT).show()
+                    }
+            } catch (e : Exception) {
+                showLoading(false)
+                activeOrInactiveButton(true)
+                setLoadingState(false)
+                setActive(true)
+                Toast.makeText(activity, e.message, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -77,5 +138,31 @@ class SigninFragment : Fragment() {
             playSequentially(email, password)
             start()
         }
+    }
+
+    private fun showLoading(isLoading : Boolean) {
+        if (isLoading) {
+            binding.fragmentSigninLoading.visibility = View.VISIBLE
+        }
+        else {
+            binding.fragmentSigninLoading.visibility = View.GONE
+        }
+    }
+
+    private fun setLoadingState(isLoading: Boolean) {
+        signinViewModel._isLoading.value = isLoading
+    }
+
+    private fun activeOrInactiveButton(isActive : Boolean) {
+        if (isActive) {
+            binding.fragmentSigninButton.isEnabled = isActive
+        }
+        else {
+            binding.fragmentSigninButton.isEnabled = isActive
+        }
+    }
+
+    private fun setActive(isActive: Boolean) {
+        signinViewModel._isActive.value = isActive
     }
 }
