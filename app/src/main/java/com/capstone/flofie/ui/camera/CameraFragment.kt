@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.camera.core.impl.utils.ContextUtil.getApplicationContext
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
@@ -24,12 +25,19 @@ import com.capstone.flofie.ml.Flower
 import com.capstone.flofie.model.Resultbox
 import com.capstone.flofie.ui.detail.DetailActivity
 import org.tensorflow.lite.DataType
+import org.tensorflow.lite.support.image.ImageProcessor
 import org.tensorflow.lite.support.image.TensorImage
+import org.tensorflow.lite.support.image.ops.ResizeOp
+import org.tensorflow.lite.support.common.ops.NormalizeOp
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 import java.io.File
 import java.nio.ByteOrder
 
 import java.nio.ByteBuffer
+import java.io.IOException
+
+
+
 
 class CameraFragment : Fragment() {
 
@@ -41,6 +49,9 @@ class CameraFragment : Fragment() {
     companion object {
         const val CAMERA_RESULT = 200
         const val GALERY_RESULT = 100
+
+        const val NORMALIZE_MEAN : Float = 127.5F
+        const val NORMALIZE_STDV : Float = 127.5F
 
         private val REQUIRED_PERMISSION = arrayOf(android.Manifest.permission.CAMERA)
         private const val REQUEST_CODE_PERMISSION = 10
@@ -106,16 +117,11 @@ class CameraFragment : Fragment() {
             if (cameraViewModel.getFile != null) {
                 if (binding.cameraFragmentPreviewContainer.drawable != null) {
                     showLoading(true)
-                    Handler().postDelayed({
+//                    Handler().postDelayed({
                         showLoading(false)
                         val bitmap = decodeFileToBitmap(cameraViewModel.getFile)
                         getOutput(bitmap)
-//                    val result = Resultbox(
-//                        "https://cdn.pixabay.com/photo/2013/07/21/13/00/rose-165819__340.jpg",
-//                        "Tulip")
-//                    cameraViewModel.result = result
-//                    setResultBox(result)
-                    }, 2000)
+//                    }, 2000)
                 }
             }
         }
@@ -132,58 +138,70 @@ class CameraFragment : Fragment() {
     }
 
     private fun getOutput(bitmap : Bitmap) {
-
-        val fileName = "label.txt"
-        val inputSting = activity?.application?.assets?.open(fileName)?.bufferedReader().use {
-            it?.readText()
-        }
-        val label = inputSting?.split("\n")
+        val model = Flower.newInstance(activity!!)
 
         try {
-            val resized = Bitmap.createScaledBitmap(bitmap, 240, 240, true)
-            val model = Flower.newInstance(requireContext())
-
             // Creates inputs for reference.
-            val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 240, 240, 3), DataType.FLOAT32)
-
-            val image = TensorImage.fromBitmap(resized).apply {
+            val image = TensorImage.fromBitmap(bitmap).apply {
                 DataType.FLOAT32
             }
-            image.load(resized)
-            val byteBuffer = image.buffer
-
-//            val tfBuffer = TensorImage.fromBitmap(resized)
-//            val byteBuffer = tfBuffer.buffer
-
-            inputFeature0.loadBuffer(byteBuffer)
+            val tensorImage = tfImageProcessor.process(image)
+            val tensorBuffer = tensorImage.tensorBuffer
+//            inputFeature0.loadBuffer(byteBuffer)
 
             // Runs model inference and gets result.
-            val outputs = model.process(inputFeature0)
+            val outputs = model.process(tensorBuffer)
             val outputFeature0 = outputs.outputFeature0AsTensorBuffer
 
-            val max = getMax(outputFeature0.floatArray)
+            val confidences : FloatArray = outputFeature0.floatArray
 
-            binding.textResult.setText(label?.get(max))
+            var maxPos = 0
+            var maxConfidences : Float = 0F
+            for (x in 0..confidences.size-1) {
+                Log.d("CEK_CONFIDENCES1", confidences[x].toString())
+
+                if (confidences[x] > maxConfidences) {
+                    maxConfidences = confidences[x]
+                    maxPos = x
+                }
+            }
+            val classes = arrayListOf<String>("Dandelion", "Daisy", "Tulip", "Sunflower", "Rose")
+
+            setResult(classes[maxPos], bitmap)
+//            binding.textResult.setText(classes[maxPos])
+
         } catch (e : Exception) {
             Toast.makeText(activity, e.message, Toast.LENGTH_LONG).show()
             Log.d("CEK_BUFFER", e.message.toString())
         }
 
-        // Releases model resources if no longer used.
-//        model.close()
+        model.close()
     }
 
-    private fun getMax(arr : FloatArray) : Int {
-        var mid = 0
-        var min = 0.0f
+    private val tfImageProcessor by lazy {
+        ImageProcessor.Builder()
+            .add(ResizeOp(240, 240, ResizeOp.ResizeMethod.BILINEAR))
+            .add(NormalizeOp(5F, 1F))
+            .build()
+    }
 
-        for (i in 0..4) {
-            if (arr[i] > min) {
-                mid = i
-                min = arr[i]
-            }
+    private fun setResult(flowerResult : String?, flowerBitmap: Bitmap) {
+
+        val flowerImage = when (flowerResult) {
+            "Daisy" -> "https://asset-a.grid.id/crop/0x0:0x0/x/photo/2021/11/02/pexels-pixabay-45901jpg-20211102041046.jpg"
+            "Dandelion" -> "https://asset-a.grid.id/crop/0x0:0x0/780x800/photo/bobofoto/original/9108_benih-dandelion.JPG"
+            "Tulip" -> "https://cdn.pixabay.com/photo/2013/06/01/02/44/tulip-115331_640.jpg"
+            "Sunflower" -> "https://cdn.shopify.com/s/files/1/2235/4833/files/How_to_Grow_Sunflowers_2.jpg?v=1557932844"
+            "Rose" -> "https://i.pinimg.com/originals/fc/95/88/fc95887d0b1ab9f8d12fc468d1ff861e.jpg"
+            else -> null
         }
-        return mid
+
+        val result = Resultbox(
+                flowerImage,
+                flowerBitmap,
+                flowerResult)
+            cameraViewModel.result = result
+            setResultBox(result)
     }
 
     private fun startCamera() {
@@ -256,6 +274,7 @@ class CameraFragment : Fragment() {
     private fun setResultBox(result : Resultbox) {
         binding.cameraFragmentResultBox.visibility = View.VISIBLE
         Glide.with(activity!!).load(result.image).into(binding.cameraFragmentResultBoxImage)
+//        binding.cameraFragmentResultBoxImage.setImageBitmap(result.imageBitmap)
         binding.cameraFragmentResultBoxFlowerName.text = result.flowerName
     }
 

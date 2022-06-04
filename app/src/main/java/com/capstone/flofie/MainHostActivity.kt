@@ -19,6 +19,10 @@ class MainHostActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainHostBinding
 
+    companion object {
+        const val EXTRA_USER_ID : String = "extra_ID"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

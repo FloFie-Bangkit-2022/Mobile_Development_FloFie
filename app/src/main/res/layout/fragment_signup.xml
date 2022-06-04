@@ -7,279 +7,141 @@
     tools:context=".ui.main.signup.SignupFragment"
     tools:background="@drawable/aaron_burden_flower_unsplash">
 
-    <ScrollView
-        android:id="@+id/fragmentSignupMainScroll"
+    <ImageView
+        android:id="@+id/fragmentSignupBackButton"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        android:layout_margin="20dp"
+        android:contentDescription="@string/back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/fragmentSignupLogoText"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="55sp"
+        android:layout_margin="60dp"
+        android:fontFamily="@font/acherus_militant_1_light"
+        android:textStyle="bold"
+        android:transitionName="fragmentLogoTextTransaction"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:id="@+id/fragmentSignupEmailContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_rounded_inputtext"
+        android:paddingTop="10dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="15dp"
+        android:layout_margin="40dp"
+        android:alpha="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragmentSignupLogoText"
+        tools:alpha="1">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fragmentSigupInputLayoutEmail"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="50dp"
+            app:startIconDrawable="@drawable/ic_outline_email_24">
 
-            <ImageView
-                android:id="@+id/fragmentSignupBackButton"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@drawable/ic_baseline_arrow_back_24"
-                android:layout_margin="20dp"
-                android:contentDescription="@string/back"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
-
-            <TextView
-                android:id="@+id/fragmentSignupLogoText"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fragmentSignupInputTextEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:textColor="@color/white"
-                android:gravity="center"
-                android:textSize="55sp"
-                android:layout_margin="60dp"
-                android:fontFamily="@font/acherus_militant_1_light"
-                android:textStyle="bold"
-                android:transitionName="fragmentLogoTextTransaction"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:singleLine="true"
+                android:textSize="16sp"
+                android:padding="0dp"
+                android:maxLines="1"
+                android:maxLength="30"
+                android:inputType="textEmailAddress"
+                android:imeOptions="actionNext"
+                android:hint="@string/email"/>
 
-            <LinearLayout
-                android:id="@+id/fragmentSignupNameContainer"
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fragmentSignupPasswordContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_rounded_inputtext"
+        android:paddingTop="10dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="15dp"
+        android:layout_marginTop="10dp"
+        android:alpha="0"
+        app:layout_constraintStart_toStartOf="@id/fragmentSignupEmailContainer"
+        app:layout_constraintEnd_toEndOf="@id/fragmentSignupEmailContainer"
+        app:layout_constraintTop_toBottomOf="@id/fragmentSignupEmailContainer"
+        tools:alpha="1">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fragmentSigupInputLayoutPassword"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:passwordToggleEnabled="true"
+            app:startIconDrawable="@drawable/ic_outline_lock_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fragmentSignupInputTextPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@drawable/bg_rounded_inputtext"
-                android:paddingTop="10dp"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:paddingBottom="15dp"
-                android:layout_margin="40dp"
-                android:alpha="0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/fragmentSignupLogoText"
-                tools:alpha="1">
+                android:singleLine="true"
+                android:textSize="16sp"
+                android:padding="0dp"
+                android:maxLines="1"
+                android:maxLength="30"
+                android:inputType="textPassword"
+                android:imeOptions="actionDone"
+                android:hint="@string/password"/>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/fragmentSigupInputLayoutName"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    app:startIconDrawable="@drawable/ic_outline_person_24">
+        </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/fragmentSignupInputTextName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:textSize="16sp"
-                        android:padding="0dp"
-                        android:maxLines="1"
-                        android:maxLength="30"
-                        android:inputType="textEmailAddress"
-                        android:imeOptions="actionNext"
-                        android:hint="@string/account_name"/>
+    </LinearLayout>
 
-                </com.google.android.material.textfield.TextInputLayout>
+    <Button
+        android:id="@+id/fragmentSignupButton"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_up"
+        android:padding="10dp"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/acherus_militant_1_light"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:layout_margin="20dp"
+        android:transitionName="fragmentSignupButtonTransaction"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragmentSignupPasswordContainer"
+        />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/fragmentSignupUsernameContainer"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@drawable/bg_rounded_inputtext"
-                android:paddingTop="10dp"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:paddingBottom="15dp"
-                android:layout_marginTop="10dp"
-                android:alpha="0"
-                app:layout_constraintStart_toStartOf="@id/fragmentSignupNameContainer"
-                app:layout_constraintEnd_toEndOf="@id/fragmentSignupNameContainer"
-                app:layout_constraintTop_toBottomOf="@id/fragmentSignupNameContainer"
-                tools:alpha="1">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/fragmentSigupInputLayoutUsername"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    app:startIconDrawable="@drawable/ic_outline_person_24">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/fragmentSignupInputTextUsername"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:textSize="16sp"
-                        android:padding="0dp"
-                        android:maxLines="1"
-                        android:maxLength="30"
-                        android:imeOptions="actionNext"
-                        android:hint="@string/username"/>
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/fragmentSignupEmailContainer"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@drawable/bg_rounded_inputtext"
-                android:paddingTop="10dp"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:paddingBottom="15dp"
-                android:layout_marginTop="10dp"
-                android:alpha="0"
-                app:layout_constraintStart_toStartOf="@id/fragmentSignupUsernameContainer"
-                app:layout_constraintEnd_toEndOf="@id/fragmentSignupUsernameContainer"
-                app:layout_constraintTop_toBottomOf="@id/fragmentSignupUsernameContainer"
-                tools:alpha="1">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/fragmentSigupInputLayoutEmail"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    app:startIconDrawable="@drawable/ic_outline_email_24">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/fragmentSignupInputTextEmail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:textSize="16sp"
-                        android:padding="0dp"
-                        android:maxLines="1"
-                        android:maxLength="30"
-                        android:inputType="textEmailAddress"
-                        android:imeOptions="actionNext"
-                        android:hint="@string/email"/>
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/fragmentSignupPasswordContainer"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@drawable/bg_rounded_inputtext"
-                android:paddingTop="10dp"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:paddingBottom="15dp"
-                android:layout_marginTop="10dp"
-                android:alpha="0"
-                app:layout_constraintStart_toStartOf="@id/fragmentSignupEmailContainer"
-                app:layout_constraintEnd_toEndOf="@id/fragmentSignupEmailContainer"
-                app:layout_constraintTop_toBottomOf="@id/fragmentSignupEmailContainer"
-                tools:alpha="1">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/fragmentSigupInputLayoutPassword"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    app:passwordToggleEnabled="true"
-                    app:startIconDrawable="@drawable/ic_outline_lock_24">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/fragmentSignupInputTextPassword"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:textSize="16sp"
-                        android:padding="0dp"
-                        android:maxLines="1"
-                        android:maxLength="30"
-                        android:inputType="textPassword"
-                        android:imeOptions="actionDone"
-                        android:hint="@string/password"/>
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/fragmentSignupDateContainer"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@drawable/bg_rounded_inputtext"
-                android:paddingTop="10dp"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:paddingBottom="15dp"
-                android:layout_marginTop="10dp"
-                android:alpha="0"
-                app:layout_constraintVertical_bias="0.0"
-                app:layout_constraintStart_toStartOf="@id/fragmentSignupPasswordContainer"
-                app:layout_constraintEnd_toEndOf="@id/fragmentSignupPasswordContainer"
-                app:layout_constraintTop_toBottomOf="@id/fragmentSignupPasswordContainer"
-                app:layout_constraintBottom_toTopOf="@id/fragmentSignupButton"
-                tools:alpha="1">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/fragmentSigupInputLayoutDate"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    app:endIconMode="clear_text"
-                    app:startIconDrawable="@drawable/ic_date_range_24">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/fragmentSignupInputTextDate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="none"
-                        android:focusable="false"
-                        android:singleLine="true"
-                        android:textSize="16sp"
-                        android:padding="0dp"
-                        android:maxLines="1"
-                        android:imeOptions="actionDone"
-                        android:hint="@string/date_and_place"/>
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/fragmentSignupButton"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:text="@string/sign_up"
-                android:padding="10dp"
-                android:layout_marginBottom="20dp"
-                android:fontFamily="@font/acherus_militant_1_light"
-                android:textStyle="bold"
-                android:textSize="12sp"
-                android:layout_margin="20dp"
-                android:transitionName="fragmentSignupButtonTransaction"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/fragmentSignupDateContainer"
-                />
-
-            <ProgressBar
-                android:id="@+id/fragmentSignupLoading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </ScrollView>
+    <ProgressBar
+        android:id="@+id/fragmentSignupLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

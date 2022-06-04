@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "124564064558",
+    "firebase_url": "https://flofie-default-rtdb.firebaseio.com",
     "project_id": "flofie",
     "storage_bucket": "flofie.appspot.com"
   },

@@ -19,6 +19,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.capstone.flofie.R
 import com.capstone.flofie.ViewModelFactory
+import com.capstone.flofie.model.User
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
@@ -27,6 +33,9 @@ class ProfileSettingsActivity : AppCompatActivity(), DatePickerDialog.OnDateSetL
 
     private lateinit var binding : ActivityProfileSettingsBinding
     private lateinit var profileSettingsViewModel: ProfileSettingsViewModel
+
+    private lateinit var mFirebaseDatabase: FirebaseDatabase
+    private val mFirebaseUser = FirebaseAuth.getInstance().currentUser?.uid
 
     companion object {
         const val GALERY_RQUEST_CODE = 100
@@ -42,6 +51,9 @@ class ProfileSettingsActivity : AppCompatActivity(), DatePickerDialog.OnDateSetL
         setupViewModel()
         setupButton()
         setupDropDownMenu()
+        readUserProfile()
+
+        mFirebaseDatabase = Firebase.database
 
         profileSettingsViewModel.date.observe(this, {
             binding.profileAccountDateOfBirthInput.text = it
@@ -58,6 +70,9 @@ class ProfileSettingsActivity : AppCompatActivity(), DatePickerDialog.OnDateSetL
     private fun setupButton() {
         Glide.with(this).load(R.drawable.placeholder).circleCrop().into(binding.profileImageProfile)
 
+        val email = FirebaseAuth.getInstance().currentUser?.email
+        binding.profileAccountEmailInput.setText(email)
+
         binding.profileAccountName.setOnClickListener {
             val nameInput = binding.profileAccountNameinput
             nameInput.requestFocus()
@@ -65,25 +80,11 @@ class ProfileSettingsActivity : AppCompatActivity(), DatePickerDialog.OnDateSetL
             imm.showSoftInput(nameInput, InputMethodManager.SHOW_IMPLICIT)
         }
 
-        binding.profileAccountUsername.setOnClickListener {
-            val usernameInput = binding.profileAccountUsernameInput
-            usernameInput.requestFocus()
-            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(usernameInput, InputMethodManager.SHOW_IMPLICIT)
-        }
-
         binding.profileAccountEmail.setOnClickListener {
             val emailInput = binding.profileAccountEmailInput
             emailInput.requestFocus()
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(emailInput, InputMethodManager.SHOW_IMPLICIT)
-        }
-
-        binding.profileAccountPassword.setOnClickListener {
-            val passwordInput = binding.profileAccountPasswordInput
-            passwordInput.requestFocus()
-            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(passwordInput, InputMethodManager.SHOW_IMPLICIT)
         }
 
         binding.profileAccountDateOfBirth.setOnClickListener {
@@ -100,6 +101,82 @@ class ProfileSettingsActivity : AppCompatActivity(), DatePickerDialog.OnDateSetL
 
         binding.profileImageProfile.setOnClickListener {
             startChooseFromGalery()
+        }
+    }
+
+    private fun saveUserProfile() {
+        val userRef = mFirebaseDatabase.reference.child("User Profile")
+
+        try {
+            val userSetting = User(
+                mFirebaseUser,
+                binding.profileAccountNameinput.text.toString(),
+                binding.profileAccountUsernameInput.text.toString(),
+                binding.profileAccountEmailInput.text.toString(),
+                binding.profileAccountDateOfBirthInput.text.toString(),
+                binding.profileAccountGenderInput.selectedItem.toString()
+            )
+            userRef.child(mFirebaseUser!!).setValue(userSetting) { error, _ ->
+                if (error != null) {
+                    Toast.makeText(this, "Error" + error.message, Toast.LENGTH_SHORT).show()
+                }
+                else {
+                    Toast.makeText(this, "Profile berhasil diupdate", Toast.LENGTH_SHORT).show()
+                    finish()
+                }
+            }
+        } catch (e: Exception) {
+            Toast.makeText(this, "Kesalahan" + e.message, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun updateUserProfile() {
+        val userRef = mFirebaseDatabase.getReference("User Profile")
+
+        try {
+            val userSetting = mapOf<String, String?>(
+                "uuid" to mFirebaseUser,
+                "accountName" to binding.profileAccountNameinput.text.toString(),
+                "username" to binding.profileAccountUsernameInput.text.toString(),
+                "email" to binding.profileAccountEmailInput.text.toString(),
+                "date" to binding.profileAccountDateOfBirthInput.text.toString(),
+                "gender" to binding.profileAccountGenderInput.selectedItem.toString()
+            )
+            userRef.child(mFirebaseUser!!).updateChildren(userSetting) { error, _ ->
+                if (error != null) {
+                    Toast.makeText(this, "Error" + error.message, Toast.LENGTH_SHORT).show()
+                }
+                else {
+                    Toast.makeText(this, "Profile berhasil diupdate", Toast.LENGTH_SHORT).show()
+                    finish()
+                }
+            }
+        } catch (e: Exception) {
+            Toast.makeText(this, "Kesalahan" + e.message, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun readUserProfile() {
+        val database = FirebaseDatabase.getInstance().getReference("User Profile").child(mFirebaseUser!!).get()
+        database.addOnSuccessListener {
+            if (it != null) {
+                val name = it.child("accountName").value
+                val username = it.child("username").value
+                val date = it.child("date").value
+
+                binding.profileAccountNameinput.setText(name.toString())
+                binding.profileAccountUsernameInput.setText(username.toString())
+                binding.profileAccountDateOfBirthInput.setText(date.toString())
+
+                binding.profileCheckButton.setOnClickListener {
+                    updateUserProfile()
+                }
+            }
+            else if (it == null) {
+                binding.profileCheckButton.setOnClickListener {
+                    saveUserProfile()
+                }
+            }
         }
     }
 
@@ -168,7 +245,7 @@ class ProfileSettingsActivity : AppCompatActivity(), DatePickerDialog.OnDateSetL
         profileSettingsViewModel.myCalendar.set(Calendar.MONTH, p2)
         profileSettingsViewModel.myCalendar.set(Calendar.DAY_OF_MONTH, p3)
 
-        val myFormat = "dd/MM/yy"
+        val myFormat = "dd MMMM yyyy"
         val dateFormat = SimpleDateFormat(myFormat, Locale.US)
 
         binding.profileAccountDateOfBirthInput.setText(dateFormat.format(profileSettingsViewModel.myCalendar.time))

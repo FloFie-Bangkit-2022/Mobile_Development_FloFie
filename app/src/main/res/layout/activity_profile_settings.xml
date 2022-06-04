@@ -169,50 +169,15 @@
             android:maxLines="1"
             android:singleLine="true"
             android:maxLength="30"
+            android:enabled="false"
+            android:focusable="false"
+            android:clickable="false"
             android:inputType="textEmailAddress"
             android:layout_margin="10dp"
             android:layout_gravity="center_vertical"
             android:gravity="end"
             android:background="@android:color/transparent"
             android:hint="@string/email"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/profileAccountPassword"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="5dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="@drawable/account_item_selector"
-        app:layout_constraintTop_toBottomOf="@id/profileAccountEmail"
-        app:layout_constraintStart_toStartOf="@id/profileTopContainer"
-        app:layout_constraintEnd_toEndOf="@id/profileTopContainer" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/password"
-            android:textSize="15sp"
-            android:textColor="@color/dayNightText"
-            android:layout_margin="10dp"
-            android:layout_gravity="center_vertical"/>
-
-        <EditText
-            android:id="@+id/profileAccountPasswordInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:maxLength="25"
-            android:layout_margin="10dp"
-            android:layout_gravity="center_vertical"
-            android:gravity="end"
-            android:background="@android:color/transparent"
-            android:hint="*********"/>
     </LinearLayout>
 
     <LinearLayout
@@ -224,7 +189,7 @@
         android:clickable="true"
         android:focusable="true"
         android:background="@drawable/account_item_selector"
-        app:layout_constraintTop_toBottomOf="@id/profileAccountPassword"
+        app:layout_constraintTop_toBottomOf="@id/profileAccountEmail"
         app:layout_constraintStart_toStartOf="@id/profileTopContainer"
         app:layout_constraintEnd_toEndOf="@id/profileTopContainer" >
 

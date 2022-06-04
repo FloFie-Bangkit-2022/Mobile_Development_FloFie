@@ -19,6 +19,7 @@ import com.capstone.flofie.MainHostActivity
 import com.capstone.flofie.database.loginPreferences.LoginPreferences
 import com.capstone.flofie.ui.main.MainActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 
 
 class AccountFragment : Fragment() {
@@ -29,6 +30,7 @@ class AccountFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var mFirebaseAuth: FirebaseAuth
+    private val mFirebaseUser = FirebaseAuth.getInstance().currentUser?.uid
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -51,8 +53,8 @@ class AccountFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         Glide.with(activity!!).load(R.drawable.placeholder).circleCrop().into(binding.accountImageProfile)
+        readUserProfile()
 
         mFirebaseAuth = FirebaseAuth.getInstance()
 
@@ -101,6 +103,17 @@ class AccountFragment : Fragment() {
             )
         val profileSettingsIntent = Intent(activity, ProfileSettingsActivity::class.java)
         startActivity(profileSettingsIntent, optionCompact.toBundle())
+    }
+
+    private fun readUserProfile() {
+        val database = FirebaseDatabase.getInstance().getReference("User Profile").child(mFirebaseUser!!).get()
+        database.addOnSuccessListener {
+            if (it != null) {
+                val name = it.child("accountName").value
+
+                binding.accountNameProfile.setText(name.toString())
+            }
+        }
     }
 
     override fun onDestroyView() {

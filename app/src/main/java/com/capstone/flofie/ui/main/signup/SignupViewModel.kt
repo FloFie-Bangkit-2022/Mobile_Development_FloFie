@@ -7,10 +7,6 @@ import java.util.*
 
 class SignupViewModel : ViewModel() {
 
-    val myCalendar: Calendar = Calendar.getInstance()
-    var _date = MutableLiveData<String>()
-    val date : LiveData<String> = _date
-
     val _isLoading = MutableLiveData<Boolean>()
     val isLoading : LiveData<Boolean> = _isLoading
 

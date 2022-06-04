@@ -24,7 +24,7 @@ import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
 import java.util.*
 
-class SignupFragment : Fragment(), DatePickerDialog.OnDateSetListener {
+class SignupFragment : Fragment() {
 
     private var _binding : FragmentSignupBinding? = null
     private val binding get() = _binding!!
@@ -42,7 +42,6 @@ class SignupFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.fragmentSignupMainScroll.isVerticalScrollBarEnabled = false
         playAnimation()
 
         mFirebaseAuth = FirebaseAuth.getInstance()
@@ -117,10 +116,6 @@ class SignupFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                 Toast.makeText(activity, "Error : " + e.message, Toast.LENGTH_SHORT).show()
             }
         }
-
-        binding.fragmentSignupInputTextDate.setOnClickListener {
-            showDatePickerDialog()
-        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -128,10 +123,6 @@ class SignupFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         setupViewModel()
 
         sharedElementEnterTransition = TransitionInflater.from(context!!).inflateTransition(android.R.transition.move)
-
-        signupViewModel.date.observe(this, {
-            binding.fragmentSignupInputTextDate.setText(it)
-        })
 
         signupViewModel.isLoading.observe(activity!!, {
             showLoading(it)
@@ -141,37 +132,12 @@ class SignupFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         })
     }
 
-    private fun showDatePickerDialog() {
-        val datePickerDialog = DatePickerDialog(
-            activity as Context,
-            this,
-            Calendar.getInstance()[Calendar.YEAR],
-            Calendar.getInstance()[Calendar.MONTH],
-            Calendar.getInstance()[Calendar.DAY_OF_MONTH]
-        )
-        datePickerDialog.show()
-    }
-
-    override fun onDateSet(p0: DatePicker?, p1: Int, p2: Int, p3: Int) {
-        signupViewModel.myCalendar.set(Calendar.YEAR, p1)
-        signupViewModel.myCalendar.set(Calendar.MONTH, p2)
-        signupViewModel.myCalendar.set(Calendar.DAY_OF_MONTH, p3)
-        val myFormat = "dd/MMM/yyyy"
-        val dateFormat = SimpleDateFormat(myFormat, Locale.US)
-
-        binding.fragmentSignupInputTextDate.setText(dateFormat.format(signupViewModel.myCalendar.time))
-        signupViewModel._date.value = binding.fragmentSignupInputTextDate.text.toString()
-    }
-
     private fun playAnimation() {
-        val name = ObjectAnimator.ofFloat(binding.fragmentSignupNameContainer, View.ALPHA, 1F).setDuration(200)
-        val username = ObjectAnimator.ofFloat(binding.fragmentSignupUsernameContainer, View.ALPHA, 1F).setDuration(200)
         val email = ObjectAnimator.ofFloat(binding.fragmentSignupEmailContainer, View.ALPHA, 1F).setDuration(200)
         val password = ObjectAnimator.ofFloat(binding.fragmentSignupPasswordContainer, View.ALPHA, 1F).setDuration(200)
-        val date = ObjectAnimator.ofFloat(binding.fragmentSignupDateContainer, View.ALPHA, 1F).setDuration(200)
 
         AnimatorSet().apply {
-            playSequentially(name, username, email, password, date)
+            playSequentially(email, password)
             start()
         }
     }
