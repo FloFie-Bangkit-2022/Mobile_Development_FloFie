@@ -13,7 +13,7 @@
         android:layout_margin="15dp"
         app:cardCornerRadius="15dp"
         app:cardElevation="6dp"
-        app:layout_constraintBottom_toTopOf="@id/cameraFragmentClearBtn"
+        app:layout_constraintBottom_toTopOf="@id/cameraFragmentCamera"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -143,16 +143,5 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:id="@+id/textResult"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Hasil di sini"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@id/cameraFragmentCamera"
-        app:layout_constraintEnd_toEndOf="@id/cameraFragmentCamera"
-        app:layout_constraintBottom_toTopOf="@id/cameraFragmentCamera"
-        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

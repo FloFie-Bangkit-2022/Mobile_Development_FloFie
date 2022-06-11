@@ -35,6 +35,9 @@ import java.nio.ByteOrder
 
 import java.nio.ByteBuffer
 import java.io.IOException
+import java.util.Scanner
+
+import java.util.ArrayList
 
 
 
@@ -49,9 +52,6 @@ class CameraFragment : Fragment() {
     companion object {
         const val CAMERA_RESULT = 200
         const val GALERY_RESULT = 100
-
-        const val NORMALIZE_MEAN : Float = 127.5F
-        const val NORMALIZE_STDV : Float = 127.5F
 
         private val REQUIRED_PERMISSION = arrayOf(android.Manifest.permission.CAMERA)
         private const val REQUEST_CODE_PERMISSION = 10
@@ -117,11 +117,9 @@ class CameraFragment : Fragment() {
             if (cameraViewModel.getFile != null) {
                 if (binding.cameraFragmentPreviewContainer.drawable != null) {
                     showLoading(true)
-//                    Handler().postDelayed({
                         showLoading(false)
                         val bitmap = decodeFileToBitmap(cameraViewModel.getFile)
                         getOutput(bitmap)
-//                    }, 2000)
                 }
             }
         }
@@ -147,28 +145,35 @@ class CameraFragment : Fragment() {
             }
             val tensorImage = tfImageProcessor.process(image)
             val tensorBuffer = tensorImage.tensorBuffer
-//            inputFeature0.loadBuffer(byteBuffer)
 
             // Runs model inference and gets result.
             val outputs = model.process(tensorBuffer)
             val outputFeature0 = outputs.outputFeature0AsTensorBuffer
 
             val confidences : FloatArray = outputFeature0.floatArray
+            val classes = arrayListOf<String>("Dandelion", "Daisy", "Tulip", "Sunflower", "Rose")
+//            val classes = ArrayList<String>()
+//            val scan = Scanner("label.txt")
+//            while (scan.hasNextLine()) {
+//                classes.add(scan.nextLine())
+//            }
+//            scan.close()
 
             var maxPos = 0
             var maxConfidences : Float = 0F
             for (x in 0..confidences.size-1) {
                 Log.d("CEK_CONFIDENCES1", confidences[x].toString())
-
                 if (confidences[x] > maxConfidences) {
                     maxConfidences = confidences[x]
                     maxPos = x
                 }
             }
-            val classes = arrayListOf<String>("Dandelion", "Daisy", "Tulip", "Sunflower", "Rose")
 
             setResult(classes[maxPos], bitmap)
-//            binding.textResult.setText(classes[maxPos])
+
+//            val sorted = bubbleShort(confidences)
+//
+//            setResult(sorted[sorted.size-1], bitmap)
 
         } catch (e : Exception) {
             Toast.makeText(activity, e.message, Toast.LENGTH_LONG).show()
@@ -184,6 +189,34 @@ class CameraFragment : Fragment() {
             .add(NormalizeOp(5F, 1F))
             .build()
     }
+//
+//    private fun bubbleShort(floatArray: FloatArray) : ArrayList<String> {
+//        val classes = arrayListOf<String>("Dandelion", "Daisy", "Tulip", "Sunflower", "Rose")
+//        var sort = floatArray
+//
+//        for (x in 0..floatArray.size-1) {
+//            for (i in 0..floatArray.size - 2 - x) {
+//                if (sort[i] > sort[i + 1]) {
+//                    val temp = sort[i]
+//                    sort[i] = sort[i + 1]
+//                    sort[i + 1] = temp
+//
+//                    val resTemp = classes[i]
+//                    classes[i] = classes[i + 1]
+//                    classes[i + 1] = resTemp
+//                }
+//            }
+//            Log.d("CEK_SORT", sort[x].toString())
+//        }
+//
+//        var sortedWithResult = arrayListOf<String>()
+//        for (x in 0..sort.size-1) {
+//            sortedWithResult.add(x, classes[x] + " : " + sort[x].toString())
+//            Log.d("CEK_SORTED", sortedWithResult[x])
+//        }
+//
+//        return sortedWithResult
+//    }
 
     private fun setResult(flowerResult : String?, flowerBitmap: Bitmap) {
 

@@ -36,6 +36,12 @@ class AccountFragment : Fragment() {
 
         setViewModel()
 
+        accountViewModel.userProfile.observe(this, {
+            binding.accountNameProfile.setText(it)
+        })
+
+        readUserProfile()
+
         _binding = FragmentAccountBinding.inflate(inflater, container, false)
         val root = binding.root
         return root
@@ -43,18 +49,17 @@ class AccountFragment : Fragment() {
 
     private fun setViewModel() {
 
-        val dataStore = (activity as MainHostActivity)?.getDataStore()
+        val dataStore = (activity as MainHostActivity).getDataStore()
         val preferences = LoginPreferences.getInstance(dataStore)
 
         accountViewModel = ViewModelProvider(
             this,
-            ViewModelFactory(preferences)
+            ViewModelFactory(preferences, mFirebaseUser)
         ) [AccountViewModel::class.java]
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Glide.with(activity!!).load(R.drawable.placeholder).circleCrop().into(binding.accountImageProfile)
-        readUserProfile()
 
         mFirebaseAuth = FirebaseAuth.getInstance()
 
@@ -77,7 +82,7 @@ class AccountFragment : Fragment() {
         logoutBuilder.setMessage("Yakin ingin keluar?")
         logoutBuilder.setCancelable(true)
 
-        logoutBuilder.setPositiveButton("Yes") { dialog, id ->
+        logoutBuilder.setPositiveButton("Yes") { _, _ ->
 
             mFirebaseAuth.signOut()
 
@@ -86,7 +91,7 @@ class AccountFragment : Fragment() {
             activity?.finish()
         }
 
-        logoutBuilder.setNegativeButton("No") { dialog, id ->
+        logoutBuilder.setNegativeButton("No") { dialog, _ ->
             dialog.cancel()
         }
 
@@ -111,7 +116,7 @@ class AccountFragment : Fragment() {
             if (it != null) {
                 val name = it.child("accountName").value
 
-                binding.accountNameProfile.setText(name.toString())
+                accountViewModel._userProfile.value = name.toString()
             }
         }
     }

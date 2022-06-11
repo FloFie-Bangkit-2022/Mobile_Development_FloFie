@@ -10,17 +10,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.flofie.adapter.ShopAdapter
-import com.capstone.flofie.databinding.FragmentShopBinding
+import com.capstone.flofie.databinding.FragmentShopListBinding
 import com.capstone.flofie.model.Shop
-import com.capstone.flofie.ui.map.ShopMapsActivity
+import com.capstone.flofie.ui.detail.shop.ShopActivity
 
-class ShopFragment : Fragment() {
+class ShopListFragment : Fragment() {
 
-    private var _binding : FragmentShopBinding? = null
+    private var _binding : FragmentShopListBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = FragmentShopBinding.inflate(inflater, container, false)
+        _binding = FragmentShopListBinding.inflate(inflater, container, false)
         val root = binding.root
         return root
     }
@@ -48,19 +48,9 @@ class ShopFragment : Fragment() {
 
         shopItemAdapter.setOnItemClicekCallback(object : ShopAdapter.ItemClickCallback{
             override fun onItemClickedCallback(shop: Shop) {
-
-                val gmIntent = Uri.parse("geo:0,0?q=${shop?.lat},${shop?.long}")
-                val mapIntent = Intent(Intent.ACTION_VIEW, gmIntent)
-                mapIntent.setPackage("com.google.android.apps.maps")
-
-                if (mapIntent.resolveActivity(activity?.packageManager!!) != null) {
-                    startActivity(mapIntent)
-                } else {
-                    val shopMapIntent = Intent(activity, ShopMapsActivity::class.java)
-                    shopMapIntent.putExtra(ShopMapsActivity.EXTRA_SHOP, shop)
-                    Log.d("CEK_SHOP", shop.toString())
-                    startActivity(shopMapIntent)
-                }
+                val shopIntent = Intent(activity, ShopActivity::class.java)
+                shopIntent.putExtra(ShopActivity.EXTRA_SHOP_DATA, shop)
+                startActivity(shopIntent)
             }
         })
 

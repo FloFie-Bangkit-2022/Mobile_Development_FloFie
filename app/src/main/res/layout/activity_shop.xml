@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.detail.DetailActivity">
+    tools:context=".ui.detail.shop.ShopActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/detailMainImage"
+                android:id="@+id/shopMainImage"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
                 android:scaleType="centerCrop"
@@ -26,7 +26,7 @@
                 android:src="@drawable/placeholder"/>
 
             <ImageView
-                android:id="@+id/detailBackButton"
+                android:id="@+id/shopBackButton"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_margin="10dp"
@@ -35,10 +35,10 @@
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
-                android:id="@+id/detailFlowerName"
+                android:id="@+id/shopName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Nama Bunga"
+                android:text="Nama Toko"
                 android:textColor="@color/green_700"
                 android:textStyle="bold"
                 android:textSize="20sp"
@@ -46,47 +46,47 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="@id/detailMainImage"
-                app:layout_constraintEnd_toStartOf="@id/detailActionContainer"
-                app:layout_constraintTop_toBottomOf="@id/detailMainImage"
+                app:layout_constraintStart_toStartOf="@id/shopMainImage"
+                app:layout_constraintEnd_toStartOf="@id/shopActionContainer"
+                app:layout_constraintTop_toBottomOf="@id/shopMainImage"
                 />
 
             <TextView
-                android:id="@+id/detailFlowerPrice"
+                android:id="@+id/shopAddress"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Kisaran Harga : Rp.3000 - 10.000"
+                android:text="Jl. Prof dr. Hamka Kel Bringin Kec Semarang Barat, Ngaliyan, Kec. Ngaliyan, Kota Semarang, Jawa Tengah 50184"
                 android:textColor="@color/green_700"
                 android:maxLines="2"
                 android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="@id/detailFlowerName"
-                app:layout_constraintTop_toBottomOf="@id/detailFlowerName"
-                app:layout_constraintEnd_toEndOf="@id/detailFlowerName"/>
+                app:layout_constraintStart_toStartOf="@id/shopName"
+                app:layout_constraintTop_toBottomOf="@id/shopName"
+                app:layout_constraintEnd_toEndOf="@id/shopName"/>
 
             <LinearLayout
-                android:id="@+id/detailActionContainer"
+                android:id="@+id/shopActionContainer"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:orientation="horizontal"
                 android:layout_margin="20dp"
                 android:elevation="5dp"
                 android:background="@drawable/detail_bg_menu_container"
-                app:layout_constraintTop_toBottomOf="@id/detailMainImage"
+                app:layout_constraintTop_toBottomOf="@id/shopMainImage"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="@+id/space">
 
                 <ImageView
-                    android:id="@+id/detailActionContainerFavorite"
+                    android:id="@+id/shopActionMap"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
-                    android:src="@drawable/ic_favorite_border_24"/>
+                    android:src="@drawable/ic_outline_map_24"/>
 
                 <ImageView
-                    android:id="@+id/detailActionContainerShare"
+                    android:id="@+id/shopActionShare"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="center_vertical"
@@ -105,36 +105,39 @@
                 android:layout_margin="20dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/detailFlowerPrice"/>
+                app:layout_constraintTop_toBottomOf="@id/shopAddress"/>
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/detailTabLayout"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/shopItemsRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginStart="100dp"
-                android:layout_marginEnd="100dp"
-                android:background="@android:color/transparent"
-                app:layout_constraintTop_toBottomOf="@id/space"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.0"
-                app:tabRippleColor="@android:color/transparent"
-                tools:backgroundTint="@color/green_500"
-                />
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/detailViewPager"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/detailTabLayout"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="@id/space"
+                app:layout_constraintEnd_toEndOf="@id/space"
+                app:layout_constraintTop_toBottomOf="@id/space"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 
-</LinearLayout>
+    <Button
+        android:id="@+id/shopBuyButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Beli"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/shopChartButton"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <Button
+        android:id="@+id/shopChartButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/ic_baseline_add_shopping_cart_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/shopChartButton"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

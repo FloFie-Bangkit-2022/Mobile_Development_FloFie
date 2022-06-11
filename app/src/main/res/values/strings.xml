@@ -58,4 +58,5 @@
     <string name="rating">4.9</string>
 
     <string name="errorInput">Harus diisi!</string>
+    <string name="result">Hasil</string>
 </resources>
