@@ -8,12 +8,12 @@
         android:id="@+id/mainSearch"
         android:padding="8dp"
         android:layout_marginTop="6dp"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="60dp"
         android:src="@drawable/bg_rounded"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/homeCart"/>
 
     <ImageView
         android:id="@+id/fakeSearchIcon"
@@ -34,4 +34,16 @@
         app:layout_constraintTop_toTopOf="@id/fakeSearchIcon"
         app:layout_constraintBottom_toBottomOf="@id/fakeSearchIcon"
         />
+
+    <ImageView
+        android:id="@+id/homeCart"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="5dp"
+        android:src="@drawable/ic_outline_shopping_cart_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/mainSearch"
+        app:layout_constraintBottom_toBottomOf="@id/mainSearch"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

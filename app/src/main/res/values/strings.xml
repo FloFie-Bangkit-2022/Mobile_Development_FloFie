@@ -59,4 +59,6 @@
 
     <string name="errorInput">Harus diisi!</string>
     <string name="result">Hasil</string>
+    <string name="transaction">Transaksi</string>
+    <string name="account">Akun</string>
 </resources>

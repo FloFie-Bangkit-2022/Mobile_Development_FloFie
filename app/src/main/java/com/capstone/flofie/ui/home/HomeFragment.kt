@@ -69,7 +69,7 @@ class HomeFragment : Fragment() {
 
     private fun setFlowerItems() {
         val listFlowers = ArrayList<Flower>()
-        listFlowers.add(Flower("Blue Tulip", "https://cdn.pixabay.com/photo/2013/07/21/13/00/rose-165819__340.jpg"))
+        listFlowers.add(Flower("Dandelion", "https://ichef.bbci.co.uk/news/976/cpsprodpb/8398/production/_103888633_hi016427699.jpg"))
         listFlowers.add(Flower("Rose", "https://i.pinimg.com/originals/53/13/f7/5313f7882176c8716d9ad03f9cc1a370.jpg"))
         listFlowers.add(Flower("Sunflower", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/A_sunflower.jpg/360px-A_sunflower.jpg"))
         listFlowers.add(Flower("Tulip", "https://us.123rf.com/450wm/stockerhero/stockerhero1905/stockerhero190500232/122163433-beautiful-various-tulips-at-field-in-holland.jpg?ver=6"))

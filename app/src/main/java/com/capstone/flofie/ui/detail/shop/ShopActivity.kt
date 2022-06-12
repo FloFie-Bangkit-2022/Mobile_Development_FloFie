@@ -35,6 +35,13 @@ class ShopActivity : AppCompatActivity() {
         setupViewModel()
         setupButton()
         setupShopItems()
+
+        shopViewModel.total.observe(this, {
+            binding.shopValueTotal.setText(it.toString())
+            if (it == 0) {
+                binding.shopValueMinus.isEnabled = false
+            }
+        })
     }
 
     private fun setupViewModel() {
@@ -91,5 +98,13 @@ class ShopActivity : AppCompatActivity() {
                 startActivity(shopMapIntent)
             }
         }
+
+        binding.shopValueMinus.setOnClickListener {
+            shopViewModel._total.value = shopViewModel._total.value?.minus(1)
+        }
+        binding.shopValuePlus.setOnClickListener {
+            shopViewModel._total.value = shopViewModel._total.value?.plus(1)
+        }
     }
+
 }

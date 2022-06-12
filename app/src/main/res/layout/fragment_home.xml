@@ -8,7 +8,8 @@
 
     <include
         android:id="@+id/homeFakeSearchBar"
-        layout="@layout/fake_search_bar"/>
+        layout="@layout/fake_search_bar"
+        />
 
     <ImageView
         android:layout_width="100dp"

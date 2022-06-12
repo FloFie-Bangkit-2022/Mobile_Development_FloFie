@@ -114,7 +114,65 @@
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="@id/space"
                 app:layout_constraintEnd_toEndOf="@id/space"
-                app:layout_constraintTop_toBottomOf="@id/space"/>
+                app:layout_constraintTop_toBottomOf="@id/space"
+                tools:layout_height="50dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Item"
+                android:layout_marginEnd="10dp"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@id/shopValue"
+                app:layout_constraintTop_toTopOf="@id/shopValue"
+                app:layout_constraintBottom_toBottomOf="@id/shopValue"/>
+
+            <LinearLayout
+                android:id="@+id/shopValue"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:layout_margin="20dp"
+                android:elevation="5dp"
+                android:background="@drawable/detail_bg_menu_container"
+                app:layout_constraintTop_toBottomOf="@id/shopItemsRecyclerView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <ImageView
+                    android:id="@+id/shopValueMinus"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/ic_baseline_minus_24"/>
+
+                <TextView
+                    android:id="@+id/shopValueTotal"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="0"
+                    android:textColor="@color/black"/>
+
+                <ImageView
+                    android:id="@+id/shopValuePlus"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/ic_baseline_add_24"/>
+
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -125,7 +183,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Beli"
+        android:text="Selanjutnya"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/shopChartButton"
         app:layout_constraintEnd_toEndOf="parent"/>
