@@ -1,7 +1,7 @@
 # Mobile_Development_FloFie
 
 <h1 align="center">
-  <img align="center" src="/misc/img/icon.png"  width="270"></img>
+  <img align="center" src="/logo/app_logo.png"  width="270"></img>
 <br>
 FloFie
 </h1>
