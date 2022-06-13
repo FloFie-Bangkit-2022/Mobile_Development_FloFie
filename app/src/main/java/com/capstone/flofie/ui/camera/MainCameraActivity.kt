@@ -10,7 +10,6 @@ import android.widget.ImageView
 import android.graphics.PorterDuff
 import android.net.Uri
 import android.os.Build
-import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
@@ -158,8 +157,8 @@ class MainCameraActivity : AppCompatActivity() {
                     Toast.makeText(this@MainCameraActivity, "Berhasil mengambil gambar", Toast.LENGTH_SHORT).show()
 
                     val intentBackToCameraFragment = Intent()
-                    Log.d("CEK_PHOTOFILE_PATH", photoFile.path.toString())
-                    Log.d("CEK_PHOTOFILE", photoFile.toString())
+//                    Log.d("CEK_PHOTOFILE_PATH", photoFile.path.toString())
+//                    Log.d("CEK_PHOTOFILE", photoFile.toString())
                     intentBackToCameraFragment.putExtra("picture", photoFile)
 
                     setResult(CameraFragment.CAMERA_RESULT, intentBackToCameraFragment)

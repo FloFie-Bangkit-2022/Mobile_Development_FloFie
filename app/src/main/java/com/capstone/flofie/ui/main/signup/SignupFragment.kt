@@ -2,27 +2,17 @@ package com.capstone.flofie.ui.main.signup
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.app.DatePickerDialog
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.DatePicker
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.transition.TransitionInflater
-import com.capstone.flofie.MainHostActivity
-import com.capstone.flofie.R
 import com.capstone.flofie.ViewModelFactory
 import com.capstone.flofie.databinding.FragmentSignupBinding
-import com.capstone.flofie.ui.account.profile.ProfileSettingsViewModel
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
-import java.text.SimpleDateFormat
-import java.util.*
 
 class SignupFragment : Fragment() {
 

@@ -2,21 +2,14 @@ package com.capstone.flofie.ui.main.signin
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.datastore.core.DataStore
-import androidx.datastore.dataStoreFile
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import androidx.transition.TransitionInflater
-import com.capstone.flofie.MainHostActivity
 import com.capstone.flofie.ViewModelFactory
 import com.capstone.flofie.database.loginPreferences.LoginPreferences
 import com.capstone.flofie.databinding.FragmentSigninBinding

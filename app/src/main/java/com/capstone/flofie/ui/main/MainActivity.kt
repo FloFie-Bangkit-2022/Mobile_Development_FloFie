@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -16,7 +15,6 @@ import com.capstone.flofie.database.loginPreferences.LoginPreferences
 import com.capstone.flofie.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.FirebaseDatabase
 
 private val Context.dataStore : DataStore<Preferences> by preferencesDataStore(name = "login")
 
@@ -64,7 +62,7 @@ class MainActivity : AppCompatActivity() {
 
             if (firebaseUser != null) {
                 val mFirebaseUserID = FirebaseAuth.getInstance().currentUser?.uid
-                Log.d("CEK_UUID", mFirebaseUserID!!)
+//                Log.d("CEK_UUID", mFirebaseUserID!!)
 
                 if (loginStatus == true) {
                     logedIn(mFirebaseUserID)

@@ -21,7 +21,6 @@ import com.capstone.flofie.ui.main.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
-
 class AccountFragment : Fragment() {
 
     private lateinit var accountViewModel: AccountViewModel

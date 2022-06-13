@@ -12,7 +12,6 @@ import com.capstone.flofie.adapter.ShopItemsAdapater
 import com.capstone.flofie.databinding.ActivityShopBinding
 import com.capstone.flofie.model.Shop
 import com.capstone.flofie.model.ShopItems
-import com.capstone.flofie.ui.main.MainActivity
 import com.capstone.flofie.ui.map.ShopMapsActivity
 
 class ShopActivity : AppCompatActivity() {

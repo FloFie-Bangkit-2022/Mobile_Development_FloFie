@@ -14,7 +14,6 @@ import android.view.MotionEvent
 
 import com.capstone.flofie.ui.detail.DetailActivity
 
-
 class SearchedActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivitySearchedBinding

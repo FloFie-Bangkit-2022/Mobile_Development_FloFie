@@ -20,7 +20,6 @@ import com.capstone.flofie.ui.search.SearchActivity
 import android.os.Handler
 import com.capstone.flofie.ui.detail.DetailActivity
 
-
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
